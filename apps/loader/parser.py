@@ -152,7 +152,6 @@ def parse_file(directory, path, extending=False):
         
        Raise UnknownExtension if the extension is unknown.
        Propagate any exception raise by the called parser."""
-    
     path = path if path[0] != '/' else path[1:]
     
     parsers = get_parsers()
@@ -188,7 +187,6 @@ def parse_file(directory, path, extending=False):
             if key in dic and not isinstance(dic[key], str):
                 raise TypeError("Key : '" + key + "' is '" + str(type(dic[key]))
                                 + "' but must be a string.")
-        
         return dic, warnings
     
     raise UnknownExtension(path, join(directory.name, path))

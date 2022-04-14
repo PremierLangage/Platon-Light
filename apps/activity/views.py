@@ -46,6 +46,7 @@ def add_activity(request, activity_id):
 @login_required
 @csrf_exempt
 def reload(request, activity_id):
+    print("reload")
     activity = get_object_or_404(Activity, id=activity_id)
     if activity.activity_type == "base" or not activity.is_teacher(request.user):
         raise PermissionDenied("Vous ne pouvez pas reload cette activité")
@@ -68,6 +69,7 @@ def remove(request, activity_id):
 @login_required
 @csrf_exempt
 def play(request, activity_id):
+    print("play")
     activity = get_object_or_404(Activity, id=activity_id)
     session, _ = SessionActivity.objects.get_or_create(user=request.user, activity=activity)
     a_type = get_activity_type_class(activity.activity_type)()
@@ -83,6 +85,7 @@ def play(request, activity_id):
 @login_required
 @csrf_exempt
 def next(request, activity_id):
+    print("next")
     activity = get_object_or_404(Activity, id=activity_id)
     session, _ = SessionActivity.objects.get_or_create(user=request.user, activity=activity)
     a_type = get_activity_type_class(activity.activity_type)()
@@ -104,7 +107,6 @@ def evaluate(request, activity_id, pl_id):
     pl = get_object_or_404(PL, id=pl_id)
     exercise = session.session_exercise(pl)
     a_type = get_activity_type_class(activity.activity_type)()
-
     if session.current_pl_id != pl_id:
         return HttpResponse(json.dumps({
             "exercise": None,

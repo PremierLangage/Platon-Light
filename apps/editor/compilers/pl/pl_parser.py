@@ -35,9 +35,7 @@ def find_parser(optimize=1):
     """
     for p in PARSERS:
         if not p.parsing:
-            print('REUSE PARSER')
             return p
-    print('NEW PARSER')
     return Parser(optimize=optimize)
 
 

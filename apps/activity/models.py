@@ -247,6 +247,8 @@ class SessionActivity(models.Model):
     activity = models.ForeignKey(Activity, on_delete=models.CASCADE)
     session_data = JSONField(default=dict)
     current_pl = models.ForeignKey(PL, on_delete=models.CASCADE, null=True)
+    version = models.PositiveIntegerField(default=0)
+    
 
     class Meta:
         unique_together = ('user', 'activity')

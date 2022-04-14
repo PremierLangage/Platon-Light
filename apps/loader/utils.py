@@ -1,6 +1,7 @@
 import os
 
 from django.conf import settings
+from sympy import Abs
 
 
 
@@ -19,6 +20,7 @@ def get_location(directory, path, current="", parser=None):
            - SyntaxError if a directory is given but the path after ':' isn't absolute or if '~\' is
              used outside repository.
            - FileNotFoundError is either the library or the file does not exists."""
+    print("get_location", path, directory)
     if ':' in path:  # Relative to a library
         lib, path = path.split(':')
         if lib.isdigit():
@@ -51,7 +53,6 @@ def get_location(directory, path, current="", parser=None):
         absolute = os.path.join(directory.root, path)
         if not os.path.isfile(absolute):
             raise FileNotFoundError("File '%s' does not exists" % path)
-        
         return directory.name, os.path.normpath(path)
     
     # Relative to current file

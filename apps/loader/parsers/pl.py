@@ -269,7 +269,6 @@ class Parser:
             directory, path = get_location(self.directory, match.group('file'),
                                            current=dirname(self.path), parser=self)
             name = basename(path) if not match.group('alias') else match.group('alias')
-            
             self.dic['__dependencies'].append(path)
             with open(join(settings.FILEBROWSER_ROOT, directory, path)) as f:
                 self.dic['__files'][name] = f.read()
@@ -328,7 +327,6 @@ class Parser:
         """ Parse the given line by calling the appropriate function according to regex match.
 
             Raise loader.exceptions.SyntaxErrorPL if the line wasn't match by any regex."""
-
         if self._multiline_key:
             self.while_multi_line(line)
         
@@ -368,12 +366,10 @@ class Parser:
                 - warning is a list (may be empty) containing every warning
 
             Raise SyntaxErrorPL if a multi line key is still open at the end of the file."""
-
         with open(self.path_parsed_file) as f:
             self.lines = f.readlines()
          
         self.fill_meta()
-        
         for line in self.lines:
             try:
                 self.parse_line(line)
@@ -383,13 +379,12 @@ class Parser:
                                     self.lineno,
                                     message="Cannot reference a binary file")
             self.lineno += 1
-        
         if self._multiline_key:  # If a multiline value is still open at the end of the parsing
             raise SyntaxErrorPL(join(self.directory.root, self.path),
+                                
                                 self.lines[self._multiline_opened_lineno - 1],
                                 self._multiline_opened_lineno,
                                 message="Multiline value never closed, start ")
-        
         return self.dic, self.warning
 
 
