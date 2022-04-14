@@ -301,6 +301,10 @@ class SessionActivity(models.Model):
             if request.user.profile.can_load():
                 error_msg += "<br><br>" + htmlprint.html_exc()
             return get_template("playexo/error.html").render({"error_msg": error_msg})
+        
+
+    def increment_version(self):
+        self.version += 1
 
 
 @receiver(models.signals.post_save, sender=SessionActivity)

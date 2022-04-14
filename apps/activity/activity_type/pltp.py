@@ -140,6 +140,7 @@ class Pltp(AbstractActivityType):
                 Answer.objects.create(user=request.user, pl=session.current_pl)
             
             elif session.current_pl and action == "reroll":
+                session.increment_version()
                 exercise = session.session_exercise()
                 exercise.built = False
                 exercise.seed = None
