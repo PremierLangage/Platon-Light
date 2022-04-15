@@ -35,8 +35,6 @@ if DEBUG:
 
 # Application definition
 PREREQ_APPS = [
-    'taggit',
-    'hitcount',
     'django_http_method',
     'django_markdown',
     'django.contrib.admin',
@@ -45,6 +43,9 @@ PREREQ_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'taggit',
+    'hitcount',
+    'channels'
 ]
 
 PROJECT_APPS = [
@@ -154,6 +155,10 @@ TEMPLATES = [
 
 # WSGI Module
 WSGI_APPLICATION = 'premierlangage.wsgi.application'
+
+# ASGI Module
+ASGI_APPLICATION = "premierlangage.asgi.application"
+
 
 # Database
 DATABASES = {
