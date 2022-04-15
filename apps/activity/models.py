@@ -246,9 +246,7 @@ class SessionActivity(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     activity = models.ForeignKey(Activity, on_delete=models.CASCADE)
     session_data = JSONField(default=dict)
-    current_pl = models.ForeignKey(PL, on_delete=models.CASCADE, null=True)
-    version = models.PositiveIntegerField(default=0)
-    
+    current_pl = models.ForeignKey(PL, on_delete=models.CASCADE, null=True)    
 
     class Meta:
         unique_together = ('user', 'activity')
@@ -301,11 +299,6 @@ class SessionActivity(models.Model):
             if request.user.profile.can_load():
                 error_msg += "<br><br>" + htmlprint.html_exc()
             return get_template("playexo/error.html").render({"error_msg": error_msg})
-        
-
-    def increment_version(self):
-        self.version += 1
-
 
 @receiver(models.signals.post_save, sender=SessionActivity)
 def init_session(sender, instance, created, *args, **kwargs):

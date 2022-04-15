@@ -114,8 +114,6 @@ def evaluate(request, activity_id, pl_id, version_number):
             "feedback": "Cet exercice PL n'est pas le plus recement ouvert. \
             Veuillez vérifier vos onglets, ou bien réactualiser la page.",
         }), content_type='application/json')
-    if session.version != version_number:
-        raise PermissionDenied("Cette activité est déjà ouverte dans un ontre onglet")
     if not activity.open:
         raise PermissionDenied("Cette activité est fermée")
     if not activity.is_member(request.user):
