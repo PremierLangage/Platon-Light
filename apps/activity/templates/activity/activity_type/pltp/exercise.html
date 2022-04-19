@@ -19,5 +19,28 @@
     (function () {
         navigationToggle();
     })();
+    const activityId = {{ activity_id|tojson|safe }};
+    const username = {{ username|tojson|safe }};
+    const webSocketUrl = 'ws://'
+    + window.location.host
+    + '/ws/activity/'
+    + activityId
+    + '/'
+    + username
+    + '/'
+    console.log("URL "  + webSocketUrl);
+    const webSocket = new WebSocket(
+           webSocketUrl
+    );
+    console.log("MAJ");
+    webSocket.onmessage = function(e) {
+        const data = JSON.parse(e.data);
+        console.log(data.message + '\n');
+    };
+
+    webSocket.onclose = function(e) {
+        console.error('Chat socket closed unexpectedly');
+    };
+    console.log("Salut " + username + " Vous êtes sur l'activité " + activityId);
 </script>
 {% endblock %}

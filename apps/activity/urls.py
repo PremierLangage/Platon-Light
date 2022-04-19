@@ -11,9 +11,9 @@
 #
 
 from django.contrib.auth import views as auth_views
-from django.urls import path
+from django.urls import path, re_path
 
-from activity import views
+from . import consumers, views
 
 
 app_name = 'activity'
@@ -35,4 +35,9 @@ urlpatterns = [
     path(r'load_csv/<int:course_id>/', views.upload_file, name="load_csv"),
     path(r'load_csv/<int:course_id>/list/', views.create_group_from_csv_file, name="list_csv"),
     path(r'export_csv/<int:course_id>/', views.export_file, name="export_csv")
+]
+
+
+websocket_urlpatterns = [
+    re_path(r'ws/activity/(?P<activity_id>\d+)/(?P<username>\w+)/$', consumers.ActivityConsumer.as_asgi()),
 ]

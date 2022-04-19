@@ -69,7 +69,6 @@ def remove(request, activity_id):
 @login_required
 @csrf_exempt
 def play(request, activity_id):
-    print("play")
     activity = get_object_or_404(Activity, id=activity_id)
     session, _ = SessionActivity.objects.get_or_create(user=request.user, activity=activity)
     a_type = get_activity_type_class(activity.activity_type)()
