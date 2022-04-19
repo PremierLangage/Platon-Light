@@ -1,5 +1,6 @@
 wheel
 channels
+channels_redis
 django<3.0.0
 django-annoying
 django-celery-results

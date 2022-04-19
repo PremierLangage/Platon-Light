@@ -161,6 +161,15 @@ WSGI_APPLICATION = 'premierlangage.wsgi.application'
 # ASGI Module
 ASGI_APPLICATION = 'premierlangage.asgi.application'
 
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('127.0.0.1', 6379)],
+        },
+    },
+}
+
 
 # Database
 DATABASES = {
