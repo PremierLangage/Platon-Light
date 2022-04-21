@@ -20,14 +20,11 @@
         navigationToggle();
     })();
     const activityId = {{ activity_id|tojson|safe }};
-    const username = {{ username|tojson|safe }};
     const webSocketUrl = 'ws://'
     + window.location.host
     + '/ws/activity/'
     + activityId
-    + '/'
-    + username
-    + '/'
+    + '/';
     console.log("URL "  + webSocketUrl);
     const webSocket = new WebSocket(
            webSocketUrl
@@ -35,12 +32,22 @@
     console.log("MAJ");
     webSocket.onmessage = function(e) {
         const data = JSON.parse(e.data);
-        console.log(data.message + '\n');
+        console.log(data);
+        if(data.already_connected) {
+            console.log("send disconnect message");
+            msg = {
+                message: "disconnect"
+            };
+            webSocket.send(JSON.stringify(msg));
+            webSocket.close();
+            window.location.replace("http://www.w3schools.com");
+        }
     };
 
     webSocket.onclose = function(e) {
         console.error('Chat socket closed unexpectedly');
+        webSocket.close();
+
     };
-    console.log("Salut " + username + " Vous êtes sur l'activité " + activityId);
 </script>
 {% endblock %}

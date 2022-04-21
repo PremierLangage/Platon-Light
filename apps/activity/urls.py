@@ -39,5 +39,5 @@ urlpatterns = [
 
 
 websocket_urlpatterns = [
-    re_path(r'ws/activity/(?P<activity_id>\d+)/(?P<username>\w+)/$', consumers.ActivityConsumer.as_asgi()),
+    re_path(r'ws/activity/(?P<activity_id>\d+)/$', consumers.ActivityConsumer.as_asgi()),
 ]

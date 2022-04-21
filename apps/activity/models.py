@@ -239,14 +239,17 @@ class SessionActivity(models.Model):
     """Represents the state of an activity for a given user.
 
     Parameters:
-        user       - User corresponding to this session.
-        activity   - Activity corresponding to this session.
-        current_pl - Which PL is currently loaded (None if the PLTP is loaded)."""
+        user            - User corresponding to this session.
+        activity        - Activity corresponding to this session.
+        current_pl      - Which PL is currently loaded (None if the PLTP is loaded).
+        connection_flag - Flag indicating if an user plays an exercice.
+        """
     
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     activity = models.ForeignKey(Activity, on_delete=models.CASCADE)
     session_data = JSONField(default=dict)
-    current_pl = models.ForeignKey(PL, on_delete=models.CASCADE, null=True)    
+    current_pl = models.ForeignKey(PL, on_delete=models.CASCADE, null=True)
+    connection_flag = models.BooleanField(default=False)
 
     class Meta:
         unique_together = ('user', 'activity')
